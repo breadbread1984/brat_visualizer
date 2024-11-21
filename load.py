@@ -38,7 +38,9 @@ def main(unused_argv):
         event = {'id': tokens[0], 'roles': list()}
         for i in range(1, len(tokens)):
           role, ent_id = tokens[i].split(':')
-          event['roles'].append({'role': role, 'id': ent_id})
+          exp = f'([^0-9]*)[0-9]*'
+          res = re.findall(exp, role)
+          event['roles'].append({'role': res[0], 'id': ent_id})
         events.append(event)
       elif line.startswith('R'):
         # relation
