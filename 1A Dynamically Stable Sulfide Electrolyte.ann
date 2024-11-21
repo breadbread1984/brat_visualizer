@@ -18,15 +18,10 @@ T12	DEV 208 220	zirconia jar
 T13	NUT 226 228	mL
 T14	NUM 222 225	125
 R3	Unit-of Arg1:T13 Arg2:T14	
-T15	PMC 222 228	125 mL
-R4	Property-of Arg1:T15 Arg2:T12	
 T16	NUM 206 207	a
 R5	Amount-of Arg1:T16 Arg2:T12	
 T17	SOP 185 192	weighed
 E3	SOP:T17 Precursor:T9 Precursor2:T11 Precursor3:T10
-T18	PMC 161 166	99.9%
-T19	PMC 126 131	99.5%
-T20	PMC 96 102	99.98%
 T21	NUM 244 246	25
 T22	DEV 247 261	zirconia balls
 R6	Amount-of Arg1:T21 Arg2:T22	
@@ -40,18 +35,13 @@ T26	NUM 337 338	2
 T27	NUT 339 344	hours
 R8	Unit-of Arg1:T27 Arg2:T26	
 R9	Unit-of Arg1:T24 Arg2:T25	
-R10	Property-of Arg1:T20 Arg2:T9	
-R11	Property-of Arg1:T19 Arg2:T10	
-R12	Property-of Arg1:T18 Arg2:T11	
 T29	DEV 303 318	milling machine
 T30	SOP 263 281	Mechanical milling
 E5	SOP:T30 Device:T29 OperationTarget:T34 Condition:E6 Condition2:E7
 T31	CND 333 336	for
-E6	CND:T31 PropertMisc:T32
-T32	PMC 337 344	2 hours
+E6	CND:T31 Number:T26
 T33	CND 345 347	at
-E7	CND:T33 PropertMisc:T28
-T28	PMC 359 372	580 rpm min−1
+E7	CND:T33 Number:T25
 T34	OPT 378 390	mixed powder
 T35	SOP 395 402	pressed
 T36	OPT 408 415	pellets
@@ -62,10 +52,8 @@ T40	NUM 445 448	873
 T41	NUM 438 439	2
 T42	NUT 440 441	h
 T43	NUT 449 450	K
-T44	PMC 438 441	2 h
-T45	PMC 445 450	873 K
-E9	CND:T39 PropertMisc:T45
-E10	CND:T38 PropertMisc:T44
+E9	CND:T39 Number:T40
+E10	CND:T38 Number:T41
 R18	Next-Operation Arg1:E5 Arg2:E8	
 T46	SOP 489 497	powdered
 T47	DEV 503 509	mortar
@@ -87,9 +75,7 @@ T54	NUM 904 906	24
 T55	NUT 907 908	h
 R15	Unit-of Arg1:T55 Arg2:T54	
 R17	Unit-of Arg1:T53 Arg2:T52	
-T56	PMC 893 899	500 °C
-T57	PMC 904 908	24 h
-E13	CND:T51 PropertMisc:T56 PropertMisc2:T57
+E13	CND:T51 Number:T52 Number2:T54
 E14	SOP:T50 Condition:E13
 T58	SOP 930 936	ground
 T59	OPT 947 971	solid electrolyte powder
@@ -112,3 +98,6 @@ R22	Next-Operation Arg1:E18 Arg2:E16
 R23	Next-Operation Arg1:E16 Arg2:E14	
 R24	Synthesis-with Arg1:T3 Arg2:E1	
 R25	Next-Operation Arg1:E4 Arg2:E5	
+R26	Unit-of Arg1:T42 Arg2:T41	
+R27	Unit-of Arg1:T43 Arg2:T40	
+R4	Attribute-of Arg1:T14 Arg2:T12	
