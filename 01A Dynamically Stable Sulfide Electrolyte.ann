@@ -1,0 +1,110 @@
+T1	ELT 0 11	Li10SnP2S12
+T2	ELT 13 18	LSnPS
+R1	Instance-of Arg1:T1 Arg2:T2	
+T3	ELT 517 521	LSnS
+T4	PRC 599 605	Li2CO3
+T5	PRC 629 633	SnO2
+T6	SOP 656 667	hand-ground
+E1	SOP:T6 Precursor:T5 Precursor2:T4
+T7	SOP 672 688	transferred into
+E2	SOP:T7 Device:T8
+T8	DEV 689 729	an alumina crucible in a tubular furnace
+R2	Next-Operation Arg1:E1 Arg2:E2	
+A1	STA E1
+T9	PRC 90 94	Li2S
+T10	PRC 120 124	SnS2
+T11	PRC 155 159	P2S5
+T12	DEV 208 220	zirconia jar
+T13	NUT 226 228	mL
+T14	NUM 222 225	125
+R3	Unit-of Arg1:T13 Arg2:T14	
+T15	PMC 222 228	125 mL
+R4	Property-of Arg1:T15 Arg2:T12	
+T16	NUM 206 207	a
+R5	Amount-of Arg1:T16 Arg2:T12	
+T17	SOP 185 192	weighed
+E3	SOP:T17 Precursor:T9 Precursor2:T11 Precursor3:T10
+T18	PMC 161 166	99.9%
+T19	PMC 126 131	99.5%
+T20	PMC 96 102	99.98%
+T21	NUM 244 246	25
+T22	DEV 247 261	zirconia balls
+R6	Amount-of Arg1:T21 Arg2:T22	
+T23	SOP 197 205	put into
+E4	SOP:T23 Device:T12 Device2:T22
+R7	Next-Operation Arg1:E3 Arg2:E4	
+A2	STA E3
+T24	NUT 363 372	rpm min−1
+T25	NUM 359 362	580
+T26	NUM 337 338	2
+T27	NUT 339 344	hours
+R8	Unit-of Arg1:T27 Arg2:T26	
+R9	Unit-of Arg1:T24 Arg2:T25	
+R10	Property-of Arg1:T20 Arg2:T9	
+R11	Property-of Arg1:T19 Arg2:T10	
+R12	Property-of Arg1:T18 Arg2:T11	
+T29	DEV 303 318	milling machine
+T30	SOP 263 281	Mechanical milling
+E5	SOP:T30 Device:T29 OperationTarget:T34 Condition:E6 Condition2:E7
+T31	CND 333 336	for
+E6	CND:T31 PropertMisc:T32
+T32	PMC 337 344	2 hours
+T33	CND 345 347	at
+E7	CND:T33 PropertMisc:T28
+T28	PMC 359 372	580 rpm min−1
+T34	OPT 378 390	mixed powder
+T35	SOP 395 402	pressed
+T36	OPT 408 415	pellets
+E8	SOP:T35 OperationTarget2:T36
+T38	CND 434 437	for
+T39	CND 442 444	at
+T40	NUM 445 448	873
+T41	NUM 438 439	2
+T42	NUT 440 441	h
+T43	NUT 449 450	K
+T44	PMC 438 441	2 h
+T45	PMC 445 450	873 K
+E9	CND:T39 PropertMisc:T45
+E10	CND:T38 PropertMisc:T44
+R18	Next-Operation Arg1:E5 Arg2:E8	
+T46	SOP 489 497	powdered
+T47	DEV 503 509	mortar
+T48	NUM 501 502	a
+R19	Amount-of Arg1:T48 Arg2:T47	
+E11	SOP:T46 Device:T47
+T49	OPT 456 472	sintered pellets
+T37	SOP 425 433	sintered
+E12	SOP:T37 OperationTarget:T49 Condition:E10 Condition2:E9
+R16	Next-Operation Arg1:E8 Arg2:E12	
+R13	Next-Operation Arg1:E12 Arg2:E11	
+A3	END E11
+R14	Synthesis-with Arg1:T1 Arg2:E3	
+T50	SOP 883 889	heated
+T51	CND 890 892	at
+T52	NUM 893 896	500
+T53	NUT 897 899	°C
+T54	NUM 904 906	24
+T55	NUT 907 908	h
+R15	Unit-of Arg1:T55 Arg2:T54	
+R17	Unit-of Arg1:T53 Arg2:T52	
+T56	PMC 893 899	500 °C
+T57	PMC 904 908	24 h
+E13	CND:T51 PropertMisc:T56 PropertMisc2:T57
+E14	SOP:T50 Condition:E13
+T58	SOP 930 936	ground
+T59	OPT 947 971	solid electrolyte powder
+E15	SOP:T58 OperationTarget:T59
+R20	Next-Operation Arg1:E14 Arg2:E15	
+A4	END E15
+T60	PTP 731 733	N2
+T62	PTP 781 791	CS2 liquid
+T63	SOP 801 811	converting
+T64	OPT 821 841	gaseous reaction gas
+E16	SOP:T63 OperationTarget:T64 Condition:E17 Participant:T67
+T65	DEV 847 864	a tubular furnace
+T66	CND 842 846	into
+E17	CND:T66 Device:T65
+T61	SOP 766 780	passed through
+E18	SOP:T61 Participant:T60 Participant2:T62
+T67	PTP 812 815	CS2
+R21	Next-Operation Arg1:E2 Arg2:E18	
