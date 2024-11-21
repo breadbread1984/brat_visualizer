@@ -63,7 +63,7 @@ def main(unused_argv):
   for entity in entities:
     records, summary, keys = driver.execute_query('merge (a: %s {id: $id, name: $name, start: $start, end: $end}) return a;' % entity['type'], id = entity['id'], name = entity['text'], start = entity['start'], end = entity['end'], database_ = FLAGS.db)
   for event in events:
-    if len(filter(lambda x: x['role'] == 'SOP', event['roles'])):
+    if len(list(filter(lambda x: x['role'] == 'SOP', event['roles']))):
       records, summary, keys = driver.execute_query('merge (a: SOP_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
     else:
       records, summary, keys = driver.execute_query('merge (a: CND_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
