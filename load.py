@@ -67,6 +67,7 @@ def main(unused_argv):
       records, summary, keys = driver.execute_query('merge (a: SOP_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
     else:
       records, summary, keys = driver.execute_query('merge (a: CND_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
+  for event in events:
     for role in event['roles']:
         records, summary, keys = driver.execute_query('match (a {id: $id}), (b {id: $ent_id}) merge (a)-[r:%s]->(b);' % role['role'].replace('-','_'), id = event['id'], ent_id = role['id'], database_ = FLAGS.db)
   for attribute in attributes:
