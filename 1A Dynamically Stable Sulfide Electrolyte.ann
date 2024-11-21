@@ -108,3 +108,7 @@ T61	SOP 766 780	passed through
 E18	SOP:T61 Participant:T60 Participant2:T62
 T67	PTP 812 815	CS2
 R21	Next-Operation Arg1:E2 Arg2:E18	
+R22	Next-Operation Arg1:E18 Arg2:E16	
+R23	Next-Operation Arg1:E16 Arg2:E14	
+R24	Synthesis-with Arg1:T3 Arg2:E1	
+R25	Next-Operation Arg1:E4 Arg2:E5	
