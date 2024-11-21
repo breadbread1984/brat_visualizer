@@ -61,19 +61,19 @@ def main(unused_argv):
     f.write(json.dumps({'entities': entities, 'relations': relations, 'events': events, 'attributes': attributes}, indent = 2, ensure_ascii = False))
   driver = GraphDatabase.driver(FLAGS.host, auth = (FLAGS.user, FLAGS.password))
   for entity in entities:
-    records, summary, keys = driver.execute_query('merge (a: Entity {id: $id, name: $name, start: $start, end: $end}) return a;', id = entity['id'], name = entity['text'], start = entity['start'], end = entity['end'], database_ = FLAGS.db)
+    records, summary, keys = driver.execute_query('merge (a: %s {id: $id, name: $name, start: $start, end: $end}) return a;' % entity['type'], id = entity['id'], name = entity['text'], start = entity['start'], end = entity['end'], database_ = FLAGS.db)
   for event in events:
-    records, summary, keys = driver.execute_query('merge (a: Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
+    if len(filter(lambda x: x['role'] == 'SOP', event['roles'])):
+      records, summary, keys = driver.execute_query('merge (a: SOP_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
+    else:
+      records, summary, keys = driver.execute_query('merge (a: CND_Event {id: $id}) return a;', id = event['id'], database_ = FLAGS.db)
     for role in event['roles']:
-        records, summary, keys = driver.execute_query('match (a: Event {id: $id}), (b: Entity {id: $ent_id}) merge (a)-[r:%s]->(b);' % role['role'].replace('-','_'), id = event['id'], ent_id = role['id'], database_ = FLAGS.db)
+        records, summary, keys = driver.execute_query('match (a {id: $id}), (b {id: $ent_id}) merge (a)-[r:%s]->(b);' % role['role'].replace('-','_'), id = event['id'], ent_id = role['id'], database_ = FLAGS.db)
   for attribute in attributes:
     records, summary, keys = driver.execute_query('merge (a: Attribute {id: $id, type: $type}) return a;', id = attribute['id'], type = attribute['type'], database_ = FLAGS.db)
-    records, summary, keys = driver.execute_query('match (a: Attribute {id: $id}), (b: Event {id: $event_id}) merge (a)-[r:ATTRIBUTE]->(b);', id = attribute['id'], event_id = attribute['event'], database_ = FLAGS.db)
+    records, summary, keys = driver.execute_query('match (a: Attribute {id: $id}), (b {id: $event_id}) merge (a)-[r:ATTRIBUTE]->(b);', id = attribute['id'], event_id = attribute['event'], database_ = FLAGS.db)
   for relation in relations:
-    if relation['type'] == 'Next-Operation':
-      records, summary, keys = driver.execute_query('match (a: Event {id: $id1}), (b: Event {id: $id2}) merge (a)-[r:%s]->(b);' % relation["type"].replace('-','_'), id1 = relation['head'], id2 = relation['tail'],  database_ = FLAGS.db)
-    else:
-      records, summary, keys = driver.execute_query('match (a: Entity {id: $id1}), (b: Entity {id: $id2}) merge (a)-[r:%s]->(b);' % relation["type"].replace('-','_'), id1 = relation['head'], id2 = relation['tail'],  database_ = FLAGS.db)
+    records, summary, keys = driver.execute_query('match (a {id: $id1}), (b {id: $id2}) merge (a)-[r:%s]->(b);' % relation["type"].replace('-','_'), id1 = relation['head'], id2 = relation['tail'],  database_ = FLAGS.db)
 
 if __name__ == "__main__":
   add_options()
